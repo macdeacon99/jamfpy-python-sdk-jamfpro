@@ -305,3 +305,36 @@ class MDMCommands(ProEndpoint):
             management_ids if isinstance(management_ids, list) else [management_ids],
             password=password
         )
+
+
+# Command Querying
+
+    def get_all(self, page_size=200, page=0, sort="requestedAt:desc"):
+        """Retrieve all issued MDM commands (paginated)."""
+        suffix = f"{self._uri}?page={page}&page-size={page_size}&sort={sort}"
+
+        req = Request(
+            method="GET",
+            url=self._api.url("2") + suffix,
+            headers=self._api.header("read")["json"],
+        )
+        resp = self._api.do(req)
+        if not resp.ok:
+            raise JamfAPIError(
+                f"Failed to retrieve MDM commands: {resp.status_code} {resp.text}"
+            )
+        return resp
+
+    def get_by_uuid(self, command_uuid: str):
+        """Retrieve a specific MDM command by UUID."""
+        req = Request(
+            method="GET",
+            url=self._api.url("2") + f"{self._uri}/{command_uuid}",
+            headers=self._api.header("read")["json"],
+        )
+        resp = self._api.do(req)
+        if not resp.ok:
+            raise JamfAPIError(
+                f"Failed to retrieve command {command_uuid}: {resp.status_code} {resp.text}"
+            )
+        return resp
