@@ -5,7 +5,7 @@ from ..client.exceptions import JamfAPIError
 
 class MDMCommands(ProEndpoint):
     """Endpoint for managing MDM commands in the modern Jamf Pro API (v1+)."""
-    _uri = "/api/v2/mdm/commands"
+    _uri = "mdm/commands"
     _name = "mdm_commands"
 
     # Send the command
