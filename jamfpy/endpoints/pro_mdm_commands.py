@@ -30,7 +30,7 @@ class MDMCommands(ProEndpoint):
         req = Request(
             method="POST",
             url=self._api.url("2") + self._uri,
-            headers=self._api.header("write")["json"],
+            headers=self._api.header("read")["json"],
             json=payload
         )
 
