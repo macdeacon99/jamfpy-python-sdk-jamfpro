@@ -5,7 +5,7 @@ from ..client.exceptions import JamfAPIError
 
 class MDMCommands(ProEndpoint):
     """Endpoint for managing MDM commands in the modern Jamf Pro API (v1+)."""
-    _uri = "mdm/commands"
+    _uri = "/mdm/commands"
     _name = "mdm_commands"
 
     # Send the command
@@ -23,9 +23,6 @@ class MDMCommands(ProEndpoint):
             "clientData": [{"managementId": mid} for mid in management_ids],
             "commandData": {"commandType": command_type, **kwargs},
         }
-
-
-        print(payload.items())
 
         req = Request(
             method="POST",
