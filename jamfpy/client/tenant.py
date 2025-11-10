@@ -36,6 +36,12 @@ class Tenant:
         self.fqdn = fqdn
         self.token_exp_threshold_mins = token_exp_threshold_mins
 
+
+        self._validate_path(
+            cert_path=Path(cert_path),
+            verify_path=Path(verify_path)
+        )
+
         auth = self._init_validate_auth(
             auth_method=auth_method,
             client_id=client_id,
@@ -55,11 +61,6 @@ class Tenant:
             http_config=http_config,
             safe_mode=safe_mode
         )
-
-        self._validate_path(
-            cert_path=Path(cert_path),
-            verify_path=Path(verify_path)
-            )
 
     def _validate_path(
             self,
